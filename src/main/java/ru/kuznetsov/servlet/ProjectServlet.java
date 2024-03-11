@@ -12,6 +12,7 @@ import ru.kuznetsov.dto.ProjectUpdateDto;
 import ru.kuznetsov.exception.NotFoundException;
 import ru.kuznetsov.service.ProjectService;
 import ru.kuznetsov.service.impl.ProjectServiceImpl;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -45,12 +46,12 @@ public class ProjectServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        log.info(" Begin doGet");
+        log.info("Begin doGet");
         setJsonHeader(resp);
 
         String responseAnswer = "";
         try {
-            log.info(req.getPathInfo());
+            log.info("pathInfo = " + req.getPathInfo());
             String[] pathPart = req.getPathInfo().split("/");
 
             if ("all".equals(pathPart[1])) {
@@ -60,7 +61,7 @@ public class ProjectServlet extends HttpServlet {
                 responseAnswer = objectMapper.writeValueAsString(projectDtoList);
             } else {
                 Integer projId = Integer.parseInt(pathPart[1]);
-                log.info("Ввели id = "+(projId));
+                log.info("Ввели id = " + (projId));
                 ProjectOutGoingDto projectDto = projectService.findById(projId);
                 resp.setStatus(HttpServletResponse.SC_OK);
                 responseAnswer = objectMapper.writeValueAsString(projectDto);

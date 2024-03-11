@@ -1,0 +1,12 @@
+#docker-compose up
+version: "3.9"
+services:
+  postgres:
+    container_name: localPostgresSQLDB
+    image: postgres
+    environment:
+      POSTGRES_DB: "Aston"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "123"
+    ports:
+      - "5432:5432"

@@ -5,7 +5,6 @@ import ru.kuznetsov.dto.RoleOutGoingDto;
 import ru.kuznetsov.dto.RoleUpdateDto;
 import ru.kuznetsov.entity.Role;
 import ru.kuznetsov.mapper.RoleDtoMapper;
-
 import java.util.List;
 
 public class RoleDtoMapperImpl implements RoleDtoMapper {
