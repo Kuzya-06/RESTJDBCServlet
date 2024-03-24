@@ -24,7 +24,7 @@ import java.util.Optional;
 class RoleDAOTest {
     private static final String INIT_SQL = "sql/data.sql";
     private static final int containerPort = 5432;
-    private static final int localPort = 5432;
+    private static final int localPort = 5433;
     @Container
     public static PostgreSQLContainer<?> container =
             new PostgreSQLContainer<>("postgres:16.0")

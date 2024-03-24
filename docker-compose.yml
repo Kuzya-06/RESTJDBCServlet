@@ -1,12 +1,40 @@
 #docker-compose up
 version: "3.9"
+
 services:
   postgres:
-    container_name: localPostgresSQLDB
-    image: postgres
+    container_name: postgres_aston
+    image: postgres:16.0
     environment:
+      PGDATA: /var/lib/postgresql/data/pgdata
       POSTGRES_DB: "Aston"
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "123"
     ports:
       - "5432:5432"
+    restart: always
+    networks:
+      - app-network
+
+  server:
+    container_name: servlet
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '8080:8080'
+    restart: always
+    depends_on:
+      - postgres
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres_aston:5432
+      POSTGRES_DB: "Aston"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "123"
+#      SPRING_URL: http://servlet:8080
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

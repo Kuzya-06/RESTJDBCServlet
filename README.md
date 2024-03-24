@@ -14,9 +14,12 @@
 9) Для проверки работы репозитория(DAO) с БД использовать
     testcontainers: https://testcontainers.com/, https://habr.com/ru/articles/444982/
 10) Покрытие тестами должно быть больше 80%
-11) БД Postgres. 
-    1) Установить БД с помощью скрипта [createDB.sql](src/main/resources/sql/createDB.sql).
-    2) Инициализировать БД с помощью скрипта [data.sql](src/main/resources/sql/data.sql).
+11) БД Postgres.
+    
+    docker run -p 5432:5432 --name postgres-db-Aston -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=123 -e POSTGRES_DB=Aston -e PGDATA=/var/lib/postgresql/data/pgdata -v d:\docker\aston:/var/lib/postgresql/data -d postgres:16.0
+
+       1) Установить БД с помощью скрипта [createDB.sql](src/main/resources/sql/createDB.sql).
+       2) Инициализировать БД с помощью скрипта [data.sql](src/main/resources/sql/data.sql).
 12) Ставим плагин SonarLint.
 
 ### Employee:
