@@ -1,8 +1,7 @@
-# RESTJDBCServlet
+# <font color="orange">RESTJDBCServlet</font>
 Проект по теме Servlet JDBC REST без SPRING
 
 Задача:
-
 1) Сделать REST сервис с использованием JDBC и Servlet
 2) Функционал любой на выбор, минимум CRUD сервис с несколькими видами entity
 3) Запрещено использовать Spring, Hibernate
@@ -14,15 +13,61 @@
 9) Для проверки работы репозитория(DAO) с БД использовать
     testcontainers: https://testcontainers.com/, https://habr.com/ru/articles/444982/
 10) Покрытие тестами должно быть больше 80%
-11) БД Postgres.
-    
-    docker run -p 5432:5432 --name postgres-db-Aston -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=123 -e POSTGRES_DB=Aston -e PGDATA=/var/lib/postgresql/data/pgdata -v d:\docker\aston:/var/lib/postgresql/data -d postgres:16.0
-
-       1) Установить БД с помощью скрипта [createDB.sql](src/main/resources/sql/createDB.sql).
-       2) Инициализировать БД с помощью скрипта [data.sql](src/main/resources/sql/data.sql).
+11) БД Postgres.  
 12) Ставим плагин SonarLint.
+***
+# <font color="blue-green"> Запустить приложение:</font>
+### <font color="green"> Вариант 1 (через tomcat 10.1.15 в IntelliJ IDEA) </font>
+Примечание: в connection.properties должно быть
+___connection.url=jdbc:postgresql://localhost:5432/postgres?currentSchema=task3___
+1. Выполнить следующую команду:
+``` 
+mvn clean install
+```
 
-### Employee:
+2. Запустить Docker.
+
+3. Выполнить команду в терминале:
+
+
+    docker run -p 5432:5432 --name postgres-db-Aston -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=123 -e POSTGRES_DB=postgres -e PGDATA=/var/lib/postgresql/data/pgdata -v d:\docker\aston:/var/lib/postgresql/data -d postgres:16.0
+
+5. Инициализировать БД с помощью скрипта [data.sql](src/main/resources/sql/data.sql).
+
+6. Запустить Postman;
+7. Путь к ресурсу
+
+    http://localhost:8080/AstonREST-1.0-SNAPSHOT/
+
+***
+### <font color="green"> Вариант 2 (через docker-compose)</font>
+Примечание: в connection.properties должно быть
+___connection.url=jdbc:postgresql://postgres_aston:5432/postgres?currentSchema=task3___
+
+1. Запустить Docker.
+
+2. Выполнить следующие команды:
+```
+mvn clean install
+```
+```bash 
+docker-compose up
+```
+```bash
+docker-compose stop
+```
+```bash
+docker-compose down
+```
+
+3. Запустить Postman;
+
+4. Путь к ресурсу
+
+    http://localhost:8080/AstonREST-1.0-SNAPSHOT/
+
+# <font color="blue-green">Запросы в постмане:</font>
+### <font color="green">Employee:</font>
 
 GET http://localhost:8080/emp/all - получить всех работников
 
@@ -53,7 +98,7 @@ DELETE http://localhost:8080/emp/{id} - удалить работника с {Id
 
 
 
-### Role:
+### <font color="green">Role:</font>
 
 GET http://localhost:8080/role/all - получить все роли
 
@@ -76,7 +121,7 @@ DELETE http://localhost:8080/role/{roleId} - удалить роль с {roleId}
 
 
 
-### Project:
+### <font color="green">Project:</font>
 
 GET http://localhost:8080/project/all - получить все номера project
 
@@ -102,3 +147,20 @@ DELETE http://localhost:8080/project/{projectId}/deleteEmployee/{employeeId} - �
 
 PUT http://localhost:8080/project/{projectId}/addEmployee/{employeeId} - добавить работника в проект
 * http://localhost:8080/project/5/addEmployee/13
+
+# Tests
+1. Запустить Docker
+2. Выполнить команду:
+
+* все
+```shell
+mvn test -Dgroups="DockerRequired, test"
+```
+    
+* или только интеграционный тест с @Testcontainers
+```shell
+mvn test -Dgroups="DockerRequired"
+```
+    
+
+

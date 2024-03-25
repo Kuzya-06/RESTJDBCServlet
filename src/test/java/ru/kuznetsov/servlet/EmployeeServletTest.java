@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Writer;
 import java.lang.reflect.Field;
-
+@Tag("test")
 @ExtendWith(
         MockitoExtension.class
 )

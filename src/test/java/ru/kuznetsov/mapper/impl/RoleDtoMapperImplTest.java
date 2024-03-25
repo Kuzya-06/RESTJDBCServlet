@@ -6,14 +6,14 @@ import ru.kuznetsov.dto.RoleOutGoingDto;
 import ru.kuznetsov.dto.RoleUpdateDto;
 import ru.kuznetsov.entity.Role;
 import ru.kuznetsov.mapper.RoleDtoMapper;
+
 import java.util.List;
 
-
+@Tag("test")
 class RoleDtoMapperImplTest {
     private static Role role;
     private static RoleIncomingDto roleIncomingDto;
     private static RoleUpdateDto roleUpdateDto;
-    private static RoleOutGoingDto roleOutGoingDto;
     private RoleDtoMapper roleDtoMapper;
 
     @BeforeAll
@@ -38,7 +38,7 @@ class RoleDtoMapperImplTest {
         roleDtoMapper = RoleDtoMapperImpl.getInstance();
     }
 
-    @DisplayName("Role map(RoleIncomingDto")
+    @DisplayName("Role map(RoleIncomingDto)")
     @Test
     void mapIncoming() {
         Role resultRole = roleDtoMapper.map(roleIncomingDto);
@@ -47,7 +47,7 @@ class RoleDtoMapperImplTest {
         Assertions.assertEquals(roleIncomingDto.getName(), resultRole.getName());
     }
 
-    @DisplayName("Role map(RoleUpdateDto")
+    @DisplayName("Role map(RoleUpdateDto)")
     @Test
     void testMapUpdate() {
         Role resultRole = roleDtoMapper.map(roleUpdateDto);
@@ -56,7 +56,7 @@ class RoleDtoMapperImplTest {
         Assertions.assertEquals(roleUpdateDto.getName(), resultRole.getName());
     }
 
-    @DisplayName("RoleOutGoingDto map(Role")
+    @DisplayName("RoleOutGoingDto map(Role)")
     @Test
     void testMapOutgoing() {
         RoleOutGoingDto resultRole = roleDtoMapper.map(role);
@@ -66,7 +66,7 @@ class RoleDtoMapperImplTest {
     }
 
 
-    @DisplayName("List<RoleOutGoingDto> map(List<Role> roleList")
+    @DisplayName("List<RoleOutGoingDto> map(List<Role> roleList)")
     @Test
     void testMapList() {
         List<RoleOutGoingDto> resultList = roleDtoMapper.map(

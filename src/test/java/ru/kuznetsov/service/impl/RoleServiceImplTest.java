@@ -14,7 +14,7 @@ import ru.kuznetsov.service.RoleService;
 
 import java.lang.reflect.Field;
 import java.util.Optional;
-
+@Tag("test")
 class RoleServiceImplTest {
     private static RoleService roleService;
     private static RoleRepository mockRoleRepository;

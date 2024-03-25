@@ -1,9 +1,6 @@
 package ru.kuznetsov.mapper.impl;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import ru.kuznetsov.dto.ProjectIncomingDto;
 import ru.kuznetsov.dto.ProjectOutGoingDto;
 import ru.kuznetsov.dto.ProjectUpdateDto;
@@ -11,7 +8,7 @@ import ru.kuznetsov.entity.Employee;
 import ru.kuznetsov.entity.Project;
 import ru.kuznetsov.mapper.ProjectDtoMapper;
 import java.util.List;
-
+@Tag("test")
 class ProjectDtoMapperImplTest {
     private ProjectDtoMapper projectDtoMapper;
 
@@ -20,7 +17,7 @@ class ProjectDtoMapperImplTest {
         projectDtoMapper = ProjectDtoMapperImpl.getInstance();
     }
 
-    @DisplayName("Project map(ProjectIncomingDto")
+    @DisplayName("Project map(ProjectIncomingDto)")
     @Test
     void mapIncoming() {
         ProjectIncomingDto dto = new ProjectIncomingDto("New Project");
@@ -42,7 +39,7 @@ class ProjectDtoMapperImplTest {
         Assertions.assertEquals(project.getEmployeeList().size(), result.getEmployeeList().size());
     }
 
-    @DisplayName("Department map(DepartmentUpdateDto")
+    @DisplayName("Department map(DepartmentUpdateDto)")
     @Test
     void testMapUpdate() {
         ProjectUpdateDto dto = new ProjectUpdateDto(10, "Update name.");

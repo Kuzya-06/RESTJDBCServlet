@@ -22,7 +22,7 @@ import java.io.Writer;
 import java.lang.reflect.Field;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+@Tag("test")
 @ExtendWith(
         MockitoExtension.class
 )

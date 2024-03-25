@@ -20,7 +20,7 @@ import ru.kuznetsov.service.ProjectService;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Optional;
-
+@Tag("test")
 class ProjectServiceImplTest {
     private static ProjectService projectService;
     private static ProjectRepository mockProjectRepository;
