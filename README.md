@@ -29,15 +29,16 @@ mvn clean install
 
 3. Выполнить команду в терминале:
 
-
-    docker run -p 5432:5432 --name postgres-db-Aston -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=123 -e POSTGRES_DB=postgres -e PGDATA=/var/lib/postgresql/data/pgdata -v d:\docker\aston:/var/lib/postgresql/data -d postgres:16.0
-
+```shell
+ docker run -p 5432:5432 --name postgres-db-Aston -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=123 -e POSTGRES_DB=postgres -e PGDATA=/var/lib/postgresql/data/pgdata -v d:\docker\aston:/var/lib/postgresql/data -d postgres:16.0
+```
+   
 5. Инициализировать БД с помощью скрипта [data.sql](src/main/resources/sql/data.sql).
 
 6. Запустить Postman;
 7. Путь к ресурсу
 
-    http://localhost:8080/AstonREST-1.0-SNAPSHOT/
+    http://localhost:8080/
 
 ***
 ### <font color="green"> Вариант 2 (через docker-compose)</font>
