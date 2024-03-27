@@ -1,6 +1,7 @@
 package ru.kuznetsov.mapper.impl;
 
 
+import lombok.extern.slf4j.Slf4j;
 import ru.kuznetsov.dto.EmployeeSmallOutGoingDto;
 import ru.kuznetsov.dto.ProjectIncomingDto;
 import ru.kuznetsov.dto.ProjectOutGoingDto;
@@ -10,6 +11,7 @@ import ru.kuznetsov.mapper.ProjectDtoMapper;
 
 import java.util.List;
 
+@Slf4j
 public class ProjectDtoMapperImpl implements ProjectDtoMapper {
     private static ProjectDtoMapper instance;
 
@@ -34,12 +36,13 @@ public class ProjectDtoMapperImpl implements ProjectDtoMapper {
 
     @Override
     public ProjectOutGoingDto map(Project project) {
+        log.info("ProjectOutGoingDto map(Project project) = "+project);
         List<EmployeeSmallOutGoingDto> empList = project.getEmployeeList()
                 .stream().map(user -> new EmployeeSmallOutGoingDto(
                         user.getId(),
                         user.getName()
                 )).toList();
-
+log.info("List<EmployeeSmallOutGoingDto> empList = "+empList.toString());
         return new ProjectOutGoingDto(
                 project.getId(),
                 project.getName(),

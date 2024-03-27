@@ -1,5 +1,6 @@
 package ru.kuznetsov.dao;
 
+import lombok.extern.slf4j.Slf4j;
 import ru.kuznetsov.dao.inter.EmployeeRepository;
 import ru.kuznetsov.dao.inter.EmployeeToProjectRepository;
 import ru.kuznetsov.dao.inter.ProjectRepository;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 public class EmployeeToProjectDAO implements EmployeeToProjectRepository {
 
     private static final ConnectionManager connectionManager = ConnectionManagerImpl.getInstance();
@@ -25,16 +27,19 @@ public class EmployeeToProjectDAO implements EmployeeToProjectRepository {
 
     private EmployeeToProjectDAO() {
     }
+
     public static synchronized EmployeeToProjectRepository getInstance() {
         if (instance == null) {
             instance = new EmployeeToProjectDAO();
         }
         return instance;
     }
+
     @Override
     public EmployeeToProject save(EmployeeToProject employeeToProject) {
         try (Connection connection = connectionManager.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(EmpToProjectSQLQuery.SAVE_SQL, Statement.RETURN_GENERATED_KEYS)) {
+             PreparedStatement preparedStatement
+                     = connection.prepareStatement(EmpToProjectSQLQuery.SAVE_SQL, Statement.RETURN_GENERATED_KEYS)) {
 
             preparedStatement.setInt(1, employeeToProject.getEmployee_id());
             preparedStatement.setInt(2, employeeToProject.getProject_id());
@@ -91,7 +96,8 @@ public class EmployeeToProjectDAO implements EmployeeToProjectRepository {
     public Optional<EmployeeToProject> findById(Integer id) {
         EmployeeToProject userToDepartment = null;
         try (Connection connection = connectionManager.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(EmpToProjectSQLQuery.FIND_BY_ID_SQL)) {
+             PreparedStatement preparedStatement
+                     = connection.prepareStatement(EmpToProjectSQLQuery.FIND_BY_ID_SQL)) {
 
             preparedStatement.setInt(1, id);
 
@@ -238,11 +244,14 @@ public class EmployeeToProjectDAO implements EmployeeToProjectRepository {
 
     @Override
     public List<Employee> findEmployeesByProjectId(Integer projId) {
+        log.info("begin findEmployeesByProjectId(Integer projId) = " + projId);
         List<Employee> employeeList = new ArrayList<>();
         try (Connection connection = connectionManager.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(EmpToProjectSQLQuery.FIND_ALL_BY_DEPARTMENT_ID_SQL)) {
-
-            preparedStatement.setLong(1, projId);
+             PreparedStatement preparedStatement
+                     = connection.prepareStatement(EmpToProjectSQLQuery.FIND_ALL_BY_DEPARTMENT_ID_SQL)) {
+            log.info("preparedStatement без id = " + preparedStatement);
+            preparedStatement.setInt(1, projId);
+            log.info("preparedStatement c id = "+projId+" и тогда =" + preparedStatement);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 int empId = resultSet.getInt("employee_id");
@@ -251,9 +260,11 @@ public class EmployeeToProjectDAO implements EmployeeToProjectRepository {
                     employeeList.add(optionalEmp.get());
                 }
             }
+            log.info("employeeList = "+employeeList.toString());
         } catch (SQLException e) {
             throw new RepositoryException(e);
         }
+        log.info("end findEmployeesByProjectId(Integer projId)");
         return employeeList;
     }
 

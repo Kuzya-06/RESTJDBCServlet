@@ -86,20 +86,25 @@ public class ProjectDAO implements ProjectRepository {
 
     @Override
     public Optional<Project> findById(Integer id) {
-        Project department = null;
+      log.info("begin findById id = "+id);
+        Project project = null;
         try (Connection connection = connectionManager.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(ProjectSQLQuery.FIND_BY_ID_SQL)) {
-
+             PreparedStatement preparedStatement =
+                     connection.prepareStatement(ProjectSQLQuery.FIND_BY_ID_SQL)) {
+            log.info("preparedStatement = "+preparedStatement);
             preparedStatement.setInt(1, id);
 
             ResultSet resultSet = preparedStatement.executeQuery();
+            log.info("resultSet = "+resultSet.toString());
             if (resultSet.next()) {
-                department = createProject(resultSet);
+                project = createProject(resultSet);
+                log.info("project = "+project);
             }
         } catch (SQLException e) {
             throw new RepositoryException(e);
         }
-        return Optional.ofNullable(department);
+        log.info("end findById ");
+        return Optional.ofNullable(project);
     }
 
     private static Project createProject(ResultSet resultSet) throws SQLException{
@@ -117,8 +122,9 @@ public class ProjectDAO implements ProjectRepository {
         log.info(" Begin findAll()");
         List<Project> projectList = new ArrayList<>();
         try (Connection connection = connectionManager.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(ProjectSQLQuery.FIND_ALL_SQL)) {
-            log.info(" findAll() preparedStatement - "+preparedStatement);
+             PreparedStatement preparedStatement
+                     = connection.prepareStatement(ProjectSQLQuery.FIND_ALL_SQL)) {
+            log.info(" findAll() preparedStatement = "+preparedStatement);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 projectList.add(createProject(resultSet));

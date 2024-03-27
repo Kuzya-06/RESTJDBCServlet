@@ -149,7 +149,7 @@ DELETE http://localhost:8080/project/{projectId}/deleteEmployee/{employeeId} - �
 PUT http://localhost:8080/project/{projectId}/addEmployee/{employeeId} - добавить работника в проект
 * http://localhost:8080/project/5/addEmployee/13
 
-# Tests
+# <font color="blue-green">Tests</font>
 1. Запустить Docker
 2. Выполнить команду:
 
@@ -161,7 +161,9 @@ mvn test -Dgroups="DockerRequired, test"
 * или только интеграционный тест с @Testcontainers
 ```shell
 mvn test -Dgroups="DockerRequired"
-```
-    
+``` 
+
+# <font color="blue-green">DIAGRAMS</font>
+![Diagramma](img.png)
 
 

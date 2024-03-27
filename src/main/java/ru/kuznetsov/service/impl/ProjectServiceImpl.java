@@ -60,9 +60,13 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public ProjectOutGoingDto findById(Integer projectId) throws NotFoundException {
-        Project proj = pRepository.findById(projectId).orElseThrow(() ->
+        log.info("begin findById id = "+projectId);
+        Project project = pRepository.findById(projectId).orElseThrow(() ->
                 new NotFoundException("Project not found."));
-        return projectDtoMapper.map(proj);
+        log.info("project = "+project);
+        ProjectOutGoingDto map = projectDtoMapper.map(project);
+        log.info("ProjectOutGoingDto map = "+map.toString());
+        return map;
     }
 
     @Override

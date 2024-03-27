@@ -1,5 +1,6 @@
 package ru.kuznetsov.entity;
 
+import lombok.extern.slf4j.Slf4j;
 import ru.kuznetsov.dao.EmployeeToProjectDAO;
 import ru.kuznetsov.dao.inter.EmployeeToProjectRepository;
 
@@ -11,8 +12,9 @@ import java.util.List;
  * Relation:
  * Many To Many: Project <-> Employee
  */
+@Slf4j
 public class Project {
-    private static final EmployeeToProjectRepository emp = EmployeeToProjectDAO.getInstance();
+    private static final EmployeeToProjectRepository empToProjRepo = EmployeeToProjectDAO.getInstance();
     private Integer id;
     private String name;
     private List<Employee> employeeList;
@@ -43,9 +45,12 @@ public class Project {
     }
 
     public List<Employee> getEmployeeList() {
+        log.info("begin getEmployeeList()");
         if (employeeList == null) {
-            employeeList = emp.findEmployeesByProjectId(this.id);
+            employeeList = empToProjRepo.findEmployeesByProjectId(this.id);
         }
+        log.info("employeeList = "+employeeList.toString());
+        log.info("end getEmployeeList()");
         return employeeList;
     }
 
