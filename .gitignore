@@ -25,3 +25,12 @@ replay_pid*
 
 # Project exclude paths
 /target/
+
+# IDEA
+.idea
+
+#PGDATA
+pgdata
+
+#postman
+postman
