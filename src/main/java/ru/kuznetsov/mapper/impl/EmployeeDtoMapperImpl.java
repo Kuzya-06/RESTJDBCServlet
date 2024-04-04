@@ -2,8 +2,10 @@ package ru.kuznetsov.mapper.impl;
 
 import ru.kuznetsov.dto.EmployeeIncomingDto;
 import ru.kuznetsov.dto.EmployeeOutGoingDto;
+import ru.kuznetsov.dto.EmployeeOutIdNameRoleDto;
 import ru.kuznetsov.dto.EmployeeUpdateDto;
 import ru.kuznetsov.entity.Employee;
+import ru.kuznetsov.entity.Employee1;
 import ru.kuznetsov.mapper.EmployeeDtoMapper;
 import ru.kuznetsov.mapper.ProjectDtoMapper;
 import ru.kuznetsov.mapper.RoleDtoMapper;
@@ -62,4 +64,15 @@ public class EmployeeDtoMapperImpl implements EmployeeDtoMapper {
     public List<EmployeeOutGoingDto> map(List<Employee> employees) {
         return employees.stream().map(this::map).toList();
     }
+
+
+
+    public EmployeeOutIdNameRoleDto map(Employee1 employee) {
+        return new EmployeeOutIdNameRoleDto(
+                employee.getId(),
+                employee.getName(),
+                employee.getRole()
+        );
+    }
+
 }

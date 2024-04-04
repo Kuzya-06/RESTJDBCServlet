@@ -1,6 +1,6 @@
 package ru.kuznetsov.dao.sql;
 
-public class ProjectSQLQuery {
+public final class ProjectSQLQuery {
 
     private ProjectSQLQuery() {
     }

@@ -149,6 +149,12 @@ DELETE http://localhost:8080/project/{projectId}/deleteEmployee/{employeeId} - �
 PUT http://localhost:8080/project/{projectId}/addEmployee/{employeeId} - добавить работника в проект
 * http://localhost:8080/project/5/addEmployee/13
 
+### Дополнительно выполнены запросы JOIN
+GET http://localhost:8080/project1/{projectId} - получить проект по ID
+
+GET http://localhost:8080/project1/all - получить все проекты
+
+
 # <font color="blue-green">Tests</font>
 1. Запустить Docker
 2. Выполнить команду:

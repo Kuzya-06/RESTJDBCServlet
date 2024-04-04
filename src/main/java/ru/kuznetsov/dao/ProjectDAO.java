@@ -96,6 +96,7 @@ public class ProjectDAO implements ProjectRepository {
 
             ResultSet resultSet = preparedStatement.executeQuery();
             log.info("resultSet = "+resultSet.toString());
+
             if (resultSet.next()) {
                 project = createProject(resultSet);
                 log.info("project = "+project);

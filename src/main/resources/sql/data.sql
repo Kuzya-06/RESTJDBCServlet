@@ -156,11 +156,25 @@ FROM task3.employee e
          JOIN task3.employeeproject e2 on e.id = e2.employee_id
          JOIN task3.project p on p.id = e2.project_id;
 
-SELECT e.name, p.name
+SELECT e.id, e.name, r.name, p.id, p.name
 FROM task3.employee e
+         JOIN task3.role r on r.id = e.role_id
          JOIN task3.employeeproject e2 on e.id = e2.employee_id
          JOIN task3.project p on p.id = e2.project_id
-WHERE e2.project_id = 2;
+WHERE e2.project_id = 3;
+
+SELECT  p.id, p.name, e.id, e.name, r.name
+FROM task3.project p
+         JOIN task3.employeeproject ep on p.id = ep.project_id
+         JOIN task3.employee e on e.id = ep.employee_id
+JOIN task3.role r on r.id = e.role_id
+ORDER BY p.id;
+
+SELECT p.name, e.name
+FROM task3.project p
+         JOIN task3.employeeproject e2 on p.id = e2.project_id
+         JOIN task3.employee e on e.id = e2.employee_id
+WHERE p.id BETWEEN 4 AND 5;
 
 
 -- Создать нового работника

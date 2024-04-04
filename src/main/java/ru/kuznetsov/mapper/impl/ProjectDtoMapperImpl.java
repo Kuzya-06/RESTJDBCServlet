@@ -2,13 +2,12 @@ package ru.kuznetsov.mapper.impl;
 
 
 import lombok.extern.slf4j.Slf4j;
-import ru.kuznetsov.dto.EmployeeSmallOutGoingDto;
-import ru.kuznetsov.dto.ProjectIncomingDto;
-import ru.kuznetsov.dto.ProjectOutGoingDto;
-import ru.kuznetsov.dto.ProjectUpdateDto;
+import ru.kuznetsov.dto.*;
 import ru.kuznetsov.entity.Project;
+import ru.kuznetsov.entity.Project1;
 import ru.kuznetsov.mapper.ProjectDtoMapper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -68,4 +67,29 @@ log.info("List<EmployeeSmallOutGoingDto> empList = "+empList.toString());
     public List<Project> mapUpdateList(List<ProjectUpdateDto> projectList) {
         return projectList.stream().map(this::map).toList();
     }
+
+
+    public ProjectOutIdNameEmployeeDto map(Project1 project1) {
+        log.info("ProjectOutIdNameEmployeeDto map(Project1 project) = "+project1);
+        List<EmployeeOutIdNameRoleDto> empList = project1.getEmployeeList()
+                .stream().map(user -> new EmployeeOutIdNameRoleDto(
+                        user.getId(),
+                        user.getName(),
+                        user.getRole()
+                )).toList();
+        log.info("List<EmployeeOutIdNameRoleDto> empList = "+empList.toString());
+        return new ProjectOutIdNameEmployeeDto(
+                project1.getId(),
+                project1.getName(),
+                empList
+        );
+    }
+
+    @Override
+    public List<ProjectOutIdNameEmployeeDto> map(ArrayList<Project1> project1List) {
+
+      return   project1List.stream().map(this::map).toList();
+
+    }
+
 }
